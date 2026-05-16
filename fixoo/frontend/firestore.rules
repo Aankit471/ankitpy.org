@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Users collection: users can read/write only their own profile
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && isOwner(userId);
+    }
+    
+    // Services collection: everyone can read, only admins (manual for now) can write
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if false; // Add admin logic here later
+    }
+    
+    // Bookings collection: users can read/write their own bookings
+    match /bookings/{bookingId} {
+      allow create: if isSignedIn();
+      allow read, update: if isSignedIn() && (request.auth.uid == resource.data.userId || request.auth.uid == request.resource.data.userId);
+    }
+  }
+}
