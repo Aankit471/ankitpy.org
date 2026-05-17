@@ -7,8 +7,3 @@
 
 [build.environment]
   NEXT_USE_NETLIFY_EDGE = "true"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
