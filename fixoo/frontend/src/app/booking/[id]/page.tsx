@@ -5,6 +5,10 @@ import { useState } from "react";
 import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/context/AuthContext";
+import { createBooking } from "@/lib/dbUtils";
+import { useToast } from "@/context/ToastContext";
+import { Booking } from "@/types";
 
 export default function BookingPage() {
   const params = useParams();
@@ -12,10 +16,42 @@ export default function BookingPage() {
   const [step, setStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState("Today, 29 Apr");
   const [selectedTime, setSelectedTime] = useState("10:00 AM");
+  const [paymentMethod, setPaymentMethod] = useState<"UPI" | "COD">("UPI");
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  const { showToast } = useToast();
 
-  const handleComplete = () => {
-    alert("Booking Confirmed! A pro will be assigned shortly.");
-    router.push("/home");
+  const handleComplete = async () => {
+    if (!user) {
+      showToast("Please login to book a service", "error");
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      const bookingData: Booking = {
+        user_id: user.uid,
+        service_type: "AC Repair", // Defaulting for demo based on params.id
+        scheduled_date: `${selectedDate} ${selectedTime}`,
+        address: "Sector 62, Noida, Uttar Pradesh, 201309",
+        price: 1548,
+        payment_method: paymentMethod,
+        status: "pending",
+        payment_status: "pending",
+        user_name: user.displayName || "Ankit Sharma",
+        user_phone: user.phoneNumber || "+91 9876543210"
+      };
+
+      await createBooking(bookingData);
+      showToast("Booking Confirmed! A pro will be assigned shortly.", "success");
+      router.push("/bookings"); // redirect to bookings
+    } catch (error) {
+      console.error("Booking error:", error);
+      showToast("Failed to create booking. Using mock success.", "warning");
+      setTimeout(() => router.push("/home"), 1000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -126,19 +162,25 @@ export default function BookingPage() {
 
               <div className="space-y-3">
                 <h3 className="text-sm font-bold">Choose Payment Method</h3>
-                <button className="w-full p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-between">
+                <button 
+                  onClick={() => setPaymentMethod("UPI")}
+                  className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all ${paymentMethod === "UPI" ? "bg-zinc-900 border-red-500" : "bg-zinc-900/50 border-white/5"}`}
+                >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-[10px]">UPI</div>
                     <span className="text-sm font-bold">Google Pay / PhonePe</span>
                   </div>
-                  <ChevronRight size={16} className="text-zinc-500" />
+                  <ChevronRight size={16} className={paymentMethod === "UPI" ? "text-red-500" : "text-zinc-500"} />
                 </button>
-                <button className="w-full p-4 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-between">
+                <button 
+                  onClick={() => setPaymentMethod("COD")}
+                  className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all ${paymentMethod === "COD" ? "bg-zinc-900 border-red-500" : "bg-zinc-900/50 border-white/5"}`}
+                >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-zinc-800 rounded flex items-center justify-center"><CreditCard size={14} /></div>
                     <span className="text-sm font-bold">Cash After Service</span>
                   </div>
-                  <ChevronRight size={16} className="text-zinc-500" />
+                  <ChevronRight size={16} className={paymentMethod === "COD" ? "text-red-500" : "text-zinc-500"} />
                 </button>
               </div>
             </motion.div>
@@ -147,10 +189,11 @@ export default function BookingPage() {
 
         <div className="fixed bottom-0 left-0 right-0 p-6">
           <button 
+            disabled={loading}
             onClick={() => step < 3 ? setStep(step + 1) : handleComplete()}
             className="w-full btn-luxury py-4 rounded-2xl font-bold flex items-center justify-center gap-2"
           >
-            {step === 3 ? "Confirm Booking" : "Continue"} <ChevronRight size={18} />
+            {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <>{step === 3 ? "Confirm Booking" : "Continue"} <ChevronRight size={18} /></>}
           </button>
         </div>
       </main>

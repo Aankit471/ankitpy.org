@@ -1,6 +1,7 @@
 "use client";
 
 import { Star, MapPin } from "lucide-react";
+import Image from "next/image";
 
 const providers = [
   {
@@ -50,10 +51,12 @@ const NearbyProviders = () => {
           <div key={pro.id} className="premium-card" style={{ minWidth: "260px", padding: "1rem" }}>
             <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
               <div style={{ position: "relative" }}>
-                <img 
+                <Image 
                   src={pro.image} 
                   alt={pro.name} 
-                  style={{ width: "60px", height: "60px", borderRadius: "12px", objectFit: "cover" }} 
+                  width={60}
+                  height={60}
+                  style={{ borderRadius: "12px", objectFit: "cover" }} 
                 />
                 <div style={{
                   position: "absolute",

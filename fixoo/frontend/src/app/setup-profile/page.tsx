@@ -36,9 +36,13 @@ export default function SetupProfile() {
       });
       showToast("Profile saved successfully!", "success");
       router.push("/home");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving profile:", error);
-      showToast("Failed to save profile. Please try again.", "error");
+      showToast(error.message || "Failed to save profile. Bypassing for now.", "error");
+      // Bypass the block so the user can see the app even if Firestore isn't setup
+      setTimeout(() => {
+         router.push("/home");
+      }, 1500);
     } finally {
       setLoading(false);
     }

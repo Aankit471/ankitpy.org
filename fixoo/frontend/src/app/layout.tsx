@@ -14,9 +14,13 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Fixoo | Instant Pro Services at Home",
-  description: "Book verified nearby professionals for home, vehicle, and personal tasks instantly.",
+  title: "Fixoo - Trusted Pros, Anytime.",
+  description: "Fixoo - Trusted home service professionals at your doorstep. Book plumbers, electricians, cleaners and more in minutes.",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "Fixoo - Trusted Pros, Anytime.",
+    description: "Hyperlocal service booking for the Indian market",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -25,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ff1e1e",
+  themeColor: "#0B0B0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -33,6 +37,7 @@ export const viewport: Viewport = {
 };
 
 import { ToastProvider } from "@/context/ToastContext";
+import QueryProvider from "@/providers/QueryProvider";
 
 export default function RootLayout({
   children,
@@ -41,12 +46,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body>
-        <AuthProvider>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </AuthProvider>
+      <body className="bg-zinc-950">
+        <QueryProvider>
+          <AuthProvider>
+            <ToastProvider>
+              <div className="max-w-md mx-auto bg-black min-h-screen relative shadow-2xl overflow-x-hidden border-x border-zinc-900">
+                {children}
+              </div>
+            </ToastProvider>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

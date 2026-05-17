@@ -7,6 +7,7 @@ import NearbyProviders from "@/components/NearbyProviders";
 import EmergencyBanner from "@/components/EmergencyBanner";
 import { Gift } from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -88,14 +89,18 @@ export default function Home() {
             <h2 style={{ fontSize: "18px", fontWeight: 700, fontFamily: "var(--font-outfit)", marginBottom: "1rem" }}>Popular Services</h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
               <div className="premium-card" style={{ padding: "0", overflow: "hidden" }}>
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&q=80&w=400" alt="AC" style={{ width: "100%", height: "100px", objectFit: "cover" }} />
+                <div style={{ position: "relative", width: "100%", height: "100px" }}>
+                  <Image src="https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&q=80&w=400" alt="AC" fill style={{ objectFit: "cover" }} />
+                </div>
                 <div style={{ padding: "12px" }}>
                   <h4 style={{ fontSize: "14px", fontWeight: 700 }}>AC Deep Cleaning</h4>
                   <p style={{ fontSize: "12px", color: "var(--muted)" }}>From ₹499</p>
                 </div>
               </div>
               <div className="premium-card" style={{ padding: "0", overflow: "hidden" }}>
-                <img src="https://images.unsplash.com/photo-1621905252507-b35222073180?auto=format&fit=crop&q=80&w=400" alt="Electrician" style={{ width: "100%", height: "100px", objectFit: "cover" }} />
+                <div style={{ position: "relative", width: "100%", height: "100px" }}>
+                  <Image src="https://images.unsplash.com/photo-1621905252507-b35222073180?auto=format&fit=crop&q=80&w=400" alt="Electrician" fill style={{ objectFit: "cover" }} />
+                </div>
                 <div style={{ padding: "12px" }}>
                   <h4 style={{ fontSize: "14px", fontWeight: 700 }}>Fan Installation</h4>
                   <p style={{ fontSize: "12px", color: "var(--muted)" }}>From ₹99</p>

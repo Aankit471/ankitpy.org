@@ -6,6 +6,7 @@ import {
   Power, TrendingUp, Star, MapPin, CheckCircle2, XCircle 
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProviderDashboard() {
   const [isOnline, setIsOnline] = useState(true);
@@ -20,7 +21,7 @@ export default function ProviderDashboard() {
       {/* Top Header */}
       <div className="glass" style={{ padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <img src="https://i.pravatar.cc/150?u=rajesh" style={{ width: "44px", height: "44px", borderRadius: "12px" }} alt="Me" />
+          <Image src="https://i.pravatar.cc/150?u=rajesh" width={44} height={44} style={{ borderRadius: "12px" }} alt="Me" />
           <div>
             <h1 style={{ fontSize: "16px", fontWeight: 800 }}>Hi, Rajesh!</h1>
             <p style={{ fontSize: "12px", color: "var(--muted)" }}>Electrician • Top Rated</p>

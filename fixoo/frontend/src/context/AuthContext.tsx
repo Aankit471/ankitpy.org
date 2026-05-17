@@ -21,20 +21,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Handle Mock Mode
     if (isMockMode) {
-      // In mock mode, we check localStorage or just assume null until login
       const mockUser = localStorage.getItem("fixoo_mock_user");
       if (mockUser) setUser(JSON.parse(mockUser));
       setLoading(false);
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    // 2. Handle Real Firebase Mode
+    if (auth && typeof auth.onAuthStateChanged === "function") {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setUser(user);
+        setLoading(false);
+      });
+      return () => unsubscribe();
+    } else {
+      console.warn("Firebase Auth not initialized correctly. Falling back to null user.");
       setLoading(false);
-    });
-
-    return () => unsubscribe();
+    }
   }, []);
 
   return (

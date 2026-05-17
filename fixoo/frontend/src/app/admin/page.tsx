@@ -5,6 +5,7 @@ import {
   Search, Bell, Settings, PieChart, ArrowUpRight,
   CheckCircle, Clock, AlertTriangle
 } from "lucide-react";
+import Image from "next/image";
 
 export default function AdminDashboard() {
   const stats = [
@@ -104,7 +105,7 @@ export default function AdminDashboard() {
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                  {[1, 2, 3].map((i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px", border: "1px solid var(--border)", borderRadius: "var(--radius-md)" }}>
-                       <img src={`https://i.pravatar.cc/150?u=pro${i}`} style={{ width: "32px", height: "32px", borderRadius: "8px" }} alt="Pro" />
+                       <Image src={`https://i.pravatar.cc/150?u=pro${i}`} width={32} height={32} style={{ borderRadius: "8px" }} alt="Pro" />
                        <div style={{ flex: 1 }}>
                           <p style={{ fontSize: "13px", fontWeight: 700 }}>Sanjay Mehta</p>
                           <p style={{ fontSize: "10px", color: "var(--muted)" }}>Aadhaar Pending</p>

@@ -3,6 +3,7 @@
 import { ArrowLeft, Phone, MessageSquare, MapPin, Navigation, Clock, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function TrackingPage() {
   const router = useRouter();
@@ -87,10 +88,12 @@ export default function TrackingPage() {
         
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
            <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-              <img 
+              <Image 
                 src="https://i.pravatar.cc/150?u=rajesh" 
                 alt="Rajesh" 
-                style={{ width: "56px", height: "56px", borderRadius: "16px" }} 
+                width={56}
+                height={56}
+                style={{ borderRadius: "16px", objectFit: "cover" }} 
               />
               <div>
                 <h2 style={{ fontSize: "16px", fontWeight: 800 }}>Rajesh Kumar</h2>

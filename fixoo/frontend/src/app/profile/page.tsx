@@ -5,6 +5,7 @@ import { User, MapPin, CreditCard, Bell, Settings, LogOut, ChevronRight, Star, S
 import BottomNav from "@/components/BottomNav";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -31,10 +32,11 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-24 h-24 rounded-full border-2 border-red-600 p-1">
-                <img 
+                <Image 
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" 
                   alt="Profile" 
-                  className="w-full h-full rounded-full bg-zinc-800"
+                  fill
+                  className="rounded-full bg-zinc-800"
                 />
               </div>
               <div className="absolute bottom-0 right-0 bg-red-600 p-1.5 rounded-full border-2 border-black">

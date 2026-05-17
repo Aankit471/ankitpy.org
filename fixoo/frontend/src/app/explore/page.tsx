@@ -5,6 +5,7 @@ import BottomNav from "@/components/BottomNav";
 import ServiceCategories from "@/components/ServiceCategories";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { Search, Star, Clock } from "lucide-react";
+import Image from "next/image";
 
 const TRENDING_SERVICES = [
   { id: "s1", name: "Full Home Cleaning", price: "₹1,499", rating: "4.8", time: "4-5 hrs", image: "https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&q=80&w=400" },
@@ -38,10 +39,12 @@ export default function ExplorePage() {
              <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
                 {TRENDING_SERVICES.map((service) => (
                   <div key={service.id} className="premium-card" style={{ padding: "0.75rem", display: "flex", gap: "1rem", alignItems: "center" }}>
-                    <img 
+                    <Image 
                       src={service.image} 
                       alt={service.name} 
-                      style={{ width: "80px", height: "80px", borderRadius: "12px", objectFit: "cover" }} 
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: "12px", objectFit: "cover" }} 
                     />
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>

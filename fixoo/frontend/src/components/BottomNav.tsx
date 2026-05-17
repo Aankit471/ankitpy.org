@@ -15,7 +15,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <nav className="glass" style={{
+    <nav className="glass max-w-md mx-auto" style={{
       position: "fixed",
       bottom: 0,
       left: 0,

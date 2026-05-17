@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Star, MapPin, Filter, Search } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const providers = [
   {
@@ -112,10 +113,12 @@ export default function ServicePage() {
             <Link key={pro.id} href={`/booking/${pro.id}?category=${category}`} style={{ textDecoration: "none" }}>
               <div className="premium-card" style={{ display: "flex", gap: "16px" }}>
                 <div style={{ position: "relative" }}>
-                  <img 
+                  <Image 
                     src={pro.image} 
                     alt={pro.name} 
-                    style={{ width: "80px", height: "80px", borderRadius: "16px", objectFit: "cover" }} 
+                    width={80}
+                    height={80}
+                    style={{ borderRadius: "16px", objectFit: "cover" }} 
                   />
                   <div style={{
                     position: "absolute",

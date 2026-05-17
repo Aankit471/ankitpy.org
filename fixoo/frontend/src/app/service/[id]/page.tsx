@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Star, Clock, ShieldCheck, CheckCircle2, PhoneCall } from "lucide-react";
 import { motion } from "framer-motion";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Image from "next/image";
 
 const SERVICES_DATA: Record<string, any> = {
   "s1": { name: "Full Home Cleaning", price: "₹1,499", rating: "4.8", reviews: 124, time: "4-5 hrs", image: "https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&q=80&w=800", desc: "Deep cleaning of all rooms, bathrooms, and kitchen. Includes floor scrubbing and dusting." },
@@ -22,7 +23,7 @@ export default function ServiceDetails() {
       <main className="min-h-screen bg-[#050505] text-white pb-32">
         {/* Header Image */}
         <div className="relative h-72 w-full">
-          <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+          <Image src={service.image} alt={service.name} fill style={{ objectFit: "cover" }} />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent" />
           <button 
             onClick={() => router.back()}
