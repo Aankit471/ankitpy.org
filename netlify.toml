@@ -1,4 +1,7 @@
 [build]
-  base = "fixoo/frontend"
-  command = "npm run build"
-  publish = ".next"
+  command = "cd fixoo/frontend && npm install && npm run build"
+  publish = "fixoo/frontend/.next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
