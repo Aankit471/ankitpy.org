@@ -47,7 +47,7 @@ export default function BookingPage() {
       router.push("/bookings"); // redirect to bookings
     } catch (error) {
       console.error("Booking error:", error);
-      showToast("Failed to create booking. Using mock success.", "warning");
+      showToast("Failed to create booking. Using mock success.", "error");
       setTimeout(() => router.push("/home"), 1000);
     } finally {
       setLoading(false);

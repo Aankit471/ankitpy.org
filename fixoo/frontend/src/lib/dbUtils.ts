@@ -92,7 +92,7 @@ export const createBooking = async (bookingData: Booking) => {
     ...bookingData,
     status: "pending",
     createdAt: serverTimestamp()
-  });
+  }));
   return bookingRef.id;
 };
 
